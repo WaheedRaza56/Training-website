@@ -1,0 +1,562 @@
+{% extends "enroll/base.html" %}
+
+{% load static %}
+
+
+{% block title %}
+     Home > Website
+{% endblock title %}
+
+
+
+{% block main-content %}
+
+
+<main class="main">
+
+  <style>
+    .cardImage a {
+        display: block;
+        position: relative;
+    }
+    
+    .cardImage a:hover .imageMain {
+        transform: scale(1.1);
+    }
+    
+    .cardImage a:hover .imageHover {
+        opacity: 1;
+        transform: scale(1.1);
+    }
+    
+    .imageMain, .imageHover {
+        transition: transform 0.3s ease, opacity 0.3s ease;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        z-index: 1;
+    }
+    
+    .imageHover {
+        opacity: 0;
+    }
+    </style>
+    
+    </style>
+
+
+    <section class="section block-banner-home32">
+      <div class="box-banner-cover">
+        <div class="container"> 
+          <div class="row align-items-center justify-content-end height-720">
+            <div class="col-lg-4">
+              <div class="text-start"> 
+                <p class="text-16-medium mb-10">Staff Pick</p>
+                <h1 class="mb-15">Design Book</h1>
+                <h6 class="mb-25">“This book moved me in so many ways. Highly recommended." - Jerry, Reviewer</h6><a class="btn btn-black" href="#">Shop Now</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+
+    <section class="section block-shop-category block-padding-40"> 
+
+      <div class="container"> 
+        <div class="text-center">
+          <h3 class="mb-40">Shop by Category</h3>
+        </div>
+      </div>
+
+      <div class="container-slider-padding">
+        <div class="box-swiper button-slide-square button-slide-square-2"> 
+          <div class="swiper-container swiper-group-5-items pb-90">
+            <div class="swiper-wrapper">
+              
+
+            {% for category in categories %}
+              <div class="swiper-slide"> 
+                  <div class="cardCollection wow fadeInUp"> 
+                      <div class="cardImage"> 
+                          {% if category.images.first %}
+                              <img src="{{ category.images.first.image.url }}" alt="{{ category.name }}" class="img-fluid" style="width: 100%; height: 200px; object-fit: cover;">
+                          {% else %}
+                              <img src="{% static 'assets/imgs/page/homepage32/cat3.png' %}" alt="Default Image" class="img-fluid" style="width: 100%; height: 200px; object-fit: cover;">
+                          {% endif %}
+                      </div>
+                      <div class="cardInfo"> 
+                          <h5 class="mb-30">{{ category.name }}</h5>
+                      </div>
+                  </div>
+              </div>
+            {% endfor %}
+
+          
+             
+            </div>
+            <div class="box-pagination-button">
+              <div class="swiper-pagination swiper-pagination-group-5-items swiper-pagination-banner-style-2"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+
+
+
+
+    <section class="section block-july-book"> 
+      <div class="container"> 
+        <div class="text-center">
+          <h3 class="wow fadeInLeft">July Book</h3>
+          <div class="box-tabs wow fadeInRight"> 
+            <ul class="nav nav-tabs nav-tabs-style-2" role="tablist">
+              <li class="nav-item" role="presentation">
+                <button class="nav-link active" id="mens-tab" data-bs-toggle="tab" data-bs-target="#mens" type="button" role="tab" aria-controls="mens" aria-selected="true">Hot items</button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button class="nav-link" id="womens-tab" data-bs-toggle="tab" data-bs-target="#womens" type="button" role="tab" aria-controls="womens" aria-selected="false">On sale</button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button class="nav-link" id="kids-tab" data-bs-toggle="tab" data-bs-target="#kids" type="button" role="tab" aria-controls="kids" aria-selected="false">Best Sallers </button>
+              </li>
+              <li class="nav-item" role="presentation">
+                <button class="nav-link" id="bags-tab" data-bs-toggle="tab" data-bs-target="#bags" type="button" role="tab" aria-controls="bags" aria-selected="false">Best Sallers</button>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="tab-content">
+          <div class="tab-pane fade show active" id="mens" role="tabpanel" aria-labelledby="mens-tab">
+            <div class="row"> 
+
+             
+                    {% for category in categories %}
+                        <div class="col-lg-3 col-md-4 col-sm-6 mb-4"> 
+                            <div class="cardProductStyle3 cardProductType03 wow fadeInUp" style="position: relative; overflow: hidden;">
+                                {% for image in category.images.all|slice:":2" %}
+                                    <div class="cardImage" style="position: relative; overflow: hidden; width: 100%; height: 200px;">
+                                        <a href="#" style="display: block; position: relative; width: 100%; height: 100%;">
+                                            {% if image.image %}
+                                                <img class="imageMain" src="{{ image.image.url }}" alt="{{ image.title }}" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease;">
+                                                <img class="imageHover" src="{{ image.image.url }}" alt="{{ image.title }}" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease; position: absolute; top: 0; left: 0; z-index: 1;">
+                                            {% else %}
+                                                <img class="imageMain" src="{% static 'assets/imgs/page/homepage32/cat3.png' %}" alt="Default Image" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease;">
+                                                <img class="imageHover" src="{% static 'assets/imgs/page/homepage32/cat3.png' %}" alt="Default Image" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease; position: absolute; top: 0; left: 0; z-index: 1;">
+                                            {% endif %} 
+                                        </a>
+                                        <div class="button-select" style="position: absolute; bottom: 10px; left: 1px; right: 1px; background: rgba(0, 0, 0, 0.5); padding: 5px; border-radius: 3px; z-index: 3;">
+                                            <a href="#" class="text-white">Select Options</a>
+                                        </div>
+                                        <div class="box-quick-button" style="position: absolute; top: 10px; right: 10px; z-index: 3;">
+
+{% comment %} ============================================================================================================================= {% endcomment %}
+                                        {% if request.session %}
+                                        <a class="btn btn-light" type="submit" onclick="addtowishlist('{{ image.id }}')">
+                                            <svg class="d-inline-flex align-items-center justify-content-center" width="28" height="28" viewBox="0 0 28 28" xmlns="http://www.w3.org/2000/svg">
+                                                        <g clip-path="url(#clip0_116_452)">
+                                                            <path d="M14.001 6.52898C16.35 4.41998 19.98 4.48998 22.243 6.75698C24.505 9.02498 24.583 12.637 22.479 14.993L13.999 23.485L5.52101 14.993C3.41701 12.637 3.49601 9.01898 5.75701 6.75698C8.02201 4.49298 11.645 4.41698 14.001 6.52898ZM20.827 8.16998C19.327 6.66798 16.907 6.60698 15.337 8.01698L14.002 9.21498L12.666 8.01798C11.091 6.60598 8.67601 6.66798 7.17201 8.17198C5.68201 9.66198 5.60701 12.047 6.98001 13.623L14 20.654L21.02 13.624C22.394 12.047 22.319 9.66498 20.827 8.16998Z" fill=""></path>
+                                                        </g>
+                                                        <defs>
+                                                            <clippath id="clip0_116_452">
+                                                                <rect width="24" height="24" fill="white" transform="translate(2 2)"></rect>
+                                                            </clippath>
+                                                        </defs>
+                                                    </svg>
+                                            </a>
+                                        {% endif %}
+{% comment %} ============================================================================================================================= {% endcomment %}
+
+
+
+                                           
+                                            <a class="btn btn-light preview-product" href="#">
+                                                <!-- Preview SVG icon -->
+                                                <svg class="d-inline-flex align-items-center justify-content-center" width="28" height="28" viewBox="0 0 28 28" fill="" xmlns="http://www.w3.org/2000/svg">
+                                                    <g clip-path="url(#clip0_91_73)">
+                                                        <path d="M20.031 18.617L24.314 22.899L22.899 24.314L18.617 20.031C17.0237 21.3082 15.042 22.0029 13 22C8.032 22 4 17.968 4 13C4 8.032 8.032 4 13 4C17.968 4 22 8.032 22 13C22.0029 15.042 21.3082 17.0237 20.031 18.617ZM18.025 17.875C19.2941 16.5699 20.0029 14.8204 20 13C20 9.132 16.867 6 13 6C9.132 6 6 9.132 6 13C6 16.867 9.132 20 13 20C14.8204 20.0029 16.5699 19.2941 17.875 18.025L18.025 17.875Z" fill=""></path>
+                                                    </g>
+                                                    <defs>
+                                                        <clippath id="clip0_91_73">
+                                                            <rect width="24" height="24" fill="white" transform="translate(2 2)"></rect>
+                                                        </clippath>
+                                                    </defs>
+                                                </svg>
+                                            </a>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                                <div class="cardInfo" style="padding: 10px;">
+                                    <h6 class="text-17-medium mb-10">{{ category.name }}</h6>
+                                    {% if category.images.first.product %}
+                                        <p class="body-p2 cardDesc" style="font-size: 16px; color: #333;">${{ category.images.first.product.price }}</p>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    {% endfor %}
+               
+            </div>
+            <div class="text-center mt-20"> <a class="btn btn-border-medium" href="#">View More</a></div>
+          </div>
+
+
+
+
+
+
+
+
+          <div class="tab-pane fade" id="womens" role="tabpanel" aria-labelledby="womens-tab"> 
+            <div class="row">
+             
+              {% for category in categories %}
+              <div class="col-lg-3 col-md-4 col-sm-6 mb-4"> 
+                  <div class="cardProductStyle3 cardProductType03 wow fadeInUp" style="position: relative; overflow: hidden;">
+                      {% for image in category.images.all|slice:":1" %}
+                          <div class="cardImage" style="position: relative; overflow: hidden; width: 100%; height: 200px;">
+                              <a href="#" style="display: block; position: relative; width: 100%; height: 100%;">
+                                <img class="imageMain" src="{{ image.image.url }}" alt="{{ image.title }}" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease;">
+                                <img class="imageHover" src="{{ image.image.url }}" alt="{{ image.title }}" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease; position: absolute; top: 0; left: 0; z-index: 1;">
+                              </a>
+                              <div class="button-select" style="position: absolute; bottom: 10px; left: 1px; right: 1px; background: rgba(0, 0, 0, 0.5); padding: 5px; border-radius: 3px; z-index: 3;">
+                                  <a href="#" class="text-white">Select Options</a>
+                              </div>
+                              <div class="box-quick-button" style="position: absolute; top: 10px; right: 10px; z-index: 3;">
+                                {% if request.session %}
+                                        <a class="btn btn-light" type="submit" onclick="addtowishlist('{{ image.id }}')">                                      <!-- SVG icon for additional actions -->
+                                            <svg class="d-inline-flex align-items-center justify-content-center" width="28" height="28" viewBox="0 0 28 28" xmlns="http://www.w3.org/2000/svg">
+                                                <g clip-path="url(#clip0_116_452)">
+                                                    <path d="M14.001 6.52898C16.35 4.41998 19.98 4.48998 22.243 6.75698C24.505 9.02498 24.583 12.637 22.479 14.993L13.999 23.485L5.52101 14.993C3.41701 12.637 3.49601 9.01898 5.75701 6.75698C8.02201 4.49298 11.645 4.41698 14.001 6.52898ZM20.827 8.16998C19.327 6.66798 16.907 6.60698 15.337 8.01698L14.002 9.21498L12.666 8.01798C11.091 6.60598 8.67601 6.66798 7.17201 8.17198C5.68201 9.66198 5.60701 12.047 6.98001 13.623L14 20.654L21.02 13.624C22.394 12.047 22.319 9.66498 20.827 8.16998Z" fill=""></path>
+                                                </g>
+                                                <defs>
+                                                    <clippath id="clip0_116_452">
+                                                        <rect width="24" height="24" fill="white" transform="translate(2 2)"></rect>
+                                                    </clippath>
+                                                </defs>
+                                            </svg>
+                                        </a>
+                                  {% endif %}
+                                 
+                                  <a class="btn btn-light preview-product" href="#">
+                                      <!-- Preview SVG icon -->
+                                      <svg class="d-inline-flex align-items-center justify-content-center" width="28" height="28" viewBox="0 0 28 28" fill="" xmlns="http://www.w3.org/2000/svg">
+                                          <g clip-path="url(#clip0_91_73)">
+                                              <path d="M20.031 18.617L24.314 22.899L22.899 24.314L18.617 20.031C17.0237 21.3082 15.042 22.0029 13 22C8.032 22 4 17.968 4 13C4 8.032 8.032 4 13 4C17.968 4 22 8.032 22 13C22.0029 15.042 21.3082 17.0237 20.031 18.617ZM18.025 17.875C19.2941 16.5699 20.0029 14.8204 20 13C20 9.132 16.867 6 13 6C9.132 6 6 9.132 6 13C6 16.867 9.132 20 13 20C14.8204 20.0029 16.5699 19.2941 17.875 18.025L18.025 17.875Z" fill=""></path>
+                                          </g>
+                                          <defs>
+                                              <clippath id="clip0_91_73">
+                                                  <rect width="24" height="24" fill="white" transform="translate(2 2)"></rect>
+                                              </clippath>
+                                          </defs>
+                                      </svg>
+                                  </a>
+                              </div>
+                          </div>
+                      {% endfor %}
+                      <div class="cardInfo" style="padding: 10px;">
+                          <h6 class="text-17-medium mb-10">{{ category.name }}</h6>
+                        {% if category.images.first.product %}
+                                <p class="body-p2 cardDesc" style="font-size: 16px; color: #333;">${{ category.images.first.product.price }}</p>
+                        {% endif %}
+                      </div>
+                  </div>
+              </div>
+          {% endfor %}
+            <div class="text-center mt-20"> <a class="btn btn-border-medium" href="#">View More</a></div>
+          </div>
+
+
+
+
+          <div class="tab-pane fade" id="kids" role="tabpanel" aria-labelledby="kids-tab"> 
+            <div class="row"> 
+             
+              {% for category in categories %}
+              <div class="col-lg-3 col-md-4 col-sm-6 mb-4"> 
+                  <div class="cardProductStyle3 cardProductType03 wow fadeInUp" style="position: relative; overflow: hidden;">
+                      {% for image in category.images.all|slice:":2" %}
+                          <div class="cardImage" style="position: relative; overflow: hidden; width: 100%; height: 200px;">
+                              <a href="#" style="display: block; position: relative; width: 100%; height: 100%;">
+                                <img class="imageMain" src="{{ image.image.url }}" alt="{{ image.title }}" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease;">
+                                <img class="imageHover" src="{{ image.image.url }}" alt="{{ image.title }}" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease; position: absolute; top: 0; left: 0; z-index: 1;">
+                              </a>
+                              <div class="button-select" style="position: absolute; bottom: 10px; left: 1px; right: 1px; background: rgba(0, 0, 0, 0.5); padding: 5px; border-radius: 3px; z-index: 3;">
+                                  <a href="#" class="text-white">Select Options</a>
+                              </div>
+                              <div class="box-quick-button" style="position: absolute; top: 10px; right: 10px; z-index: 3;">
+                                {% if request.session %}
+                                    <a class="btn btn-light" type="submit" onclick="addtowishlist('{{ image.id }}')"> 
+                                        <!-- SVG icon for additional actions -->
+                                        <svg class="d-inline-flex align-items-center justify-content-center" width="28" height="28" viewBox="0 0 28 28" xmlns="http://www.w3.org/2000/svg">
+                                            <g clip-path="url(#clip0_116_452)">
+                                                <path d="M14.001 6.52898C16.35 4.41998 19.98 4.48998 22.243 6.75698C24.505 9.02498 24.583 12.637 22.479 14.993L13.999 23.485L5.52101 14.993C3.41701 12.637 3.49601 9.01898 5.75701 6.75698C8.02201 4.49298 11.645 4.41698 14.001 6.52898ZM20.827 8.16998C19.327 6.66798 16.907 6.60698 15.337 8.01698L14.002 9.21498L12.666 8.01798C11.091 6.60598 8.67601 6.66798 7.17201 8.17198C5.68201 9.66198 5.60701 12.047 6.98001 13.623L14 20.654L21.02 13.624C22.394 12.047 22.319 9.66498 20.827 8.16998Z" fill=""></path>
+                                            </g>
+                                            <defs>
+                                                <clippath id="clip0_116_452">
+                                                    <rect width="24" height="24" fill="white" transform="translate(2 2)"></rect>
+                                                </clippath>
+                                            </defs>
+                                        </svg>
+                                    </a>
+                                {% endif %}
+                                  
+                                  <a class="btn btn-light preview-product" href="#">
+                                      <!-- Preview SVG icon -->
+                                      <svg class="d-inline-flex align-items-center justify-content-center" width="28" height="28" viewBox="0 0 28 28" fill="" xmlns="http://www.w3.org/2000/svg">
+                                          <g clip-path="url(#clip0_91_73)">
+                                              <path d="M20.031 18.617L24.314 22.899L22.899 24.314L18.617 20.031C17.0237 21.3082 15.042 22.0029 13 22C8.032 22 4 17.968 4 13C4 8.032 8.032 4 13 4C17.968 4 22 8.032 22 13C22.0029 15.042 21.3082 17.0237 20.031 18.617ZM18.025 17.875C19.2941 16.5699 20.0029 14.8204 20 13C20 9.132 16.867 6 13 6C9.132 6 6 9.132 6 13C6 16.867 9.132 20 13 20C14.8204 20.0029 16.5699 19.2941 17.875 18.025L18.025 17.875Z" fill=""></path>
+                                          </g>
+                                          <defs>
+                                              <clippath id="clip0_91_73">
+                                                  <rect width="24" height="24" fill="white" transform="translate(2 2)"></rect>
+                                              </clippath>
+                                          </defs>
+                                      </svg>
+                                  </a>
+                              </div>
+                          </div>
+                      {% endfor %}
+                      <div class="cardInfo" style="padding: 10px;">
+                          <h6 class="text-17-medium mb-10">{{ category.name }}</h6>
+                          {% if category.images.first.product %}
+                              <p class="body-p2 cardDesc" style="font-size: 16px; color: #333;">${{ category.images.first.product.price }}</p>
+                          {% endif %}
+                      </div>
+                  </div>
+              </div>
+          {% endfor %}
+            <div class="text-center mt-20"> <a class="btn btn-border-medium" href="#">View More</a></div>
+          </div>
+
+
+
+
+
+
+
+          <div class="tab-pane fade" id="bags" role="tabpanel" aria-labelledby="bags-tab"> 
+            <div class="row"> 
+
+              {% for category in categories %}
+              <div class="col-lg-3 col-md-4 col-sm-6 mb-4"> 
+                  <div class="cardProductStyle3 cardProductType03 wow fadeInUp" style="position: relative; overflow: hidden;">
+                      {% for image in category.images.all|slice:":2" %}
+                          <div class="cardImage" style="position: relative; overflow: hidden; width: 100%; height: 200px;">
+                              <a href="#" style="display: block; position: relative; width: 100%; height: 100%;">
+                                  <img class="imageMain" src="{{ image.image.url }}" alt="{{ image.title }}" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease;">
+                                  <img class="imageHover" src="{{ image.image.url }}" alt="{{ image.title }}" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease; position: absolute; top: 0; left: 0; z-index: 1;">
+                              </a>
+                              <div class="button-select" style="position: absolute; bottom: 10px; left: 1px; right: 1px; background: rgba(0, 0, 0, 0.5); padding: 5px; border-radius: 3px; z-index: 3;">
+                                  <a href="#" class="text-white">Select Options</a>
+                              </div>
+                              <div class="box-quick-button" style="position: absolute; top: 10px; right: 10px; z-index: 3;">
+                                {% if request.session %}
+                                    <a class="btn btn-light" type="submit" onclick="addtowishlist('{{ image.id }}')"> 
+                                        <!-- SVG icon for additional actions -->
+                                        <svg class="d-inline-flex align-items-center justify-content-center" width="28" height="28" viewBox="0 0 28 28" xmlns="http://www.w3.org/2000/svg">
+                                            <g clip-path="url(#clip0_116_452)">
+                                                <path d="M14.001 6.52898C16.35 4.41998 19.98 4.48998 22.243 6.75698C24.505 9.02498 24.583 12.637 22.479 14.993L13.999 23.485L5.52101 14.993C3.41701 12.637 3.49601 9.01898 5.75701 6.75698C8.02201 4.49298 11.645 4.41698 14.001 6.52898ZM20.827 8.16998C19.327 6.66798 16.907 6.60698 15.337 8.01698L14.002 9.21498L12.666 8.01798C11.091 6.60598 8.67601 6.66798 7.17201 8.17198C5.68201 9.66198 5.60701 12.047 6.98001 13.623L14 20.654L21.02 13.624C22.394 12.047 22.319 9.66498 20.827 8.16998Z" fill=""></path>
+                                            </g>
+                                            <defs>
+                                                <clippath id="clip0_116_452">
+                                                    <rect width="24" height="24" fill="white" transform="translate(2 2)"></rect>
+                                                </clippath>
+                                            </defs>
+                                        </svg>
+                                    </a>
+                                {% endif %}
+                                 
+                                  <a class="btn btn-light preview-product" href="#">
+                                      <!-- Preview SVG icon -->
+                                      <svg class="d-inline-flex align-items-center justify-content-center" width="28" height="28" viewBox="0 0 28 28" fill="" xmlns="http://www.w3.org/2000/svg">
+                                          <g clip-path="url(#clip0_91_73)">
+                                              <path d="M20.031 18.617L24.314 22.899L22.899 24.314L18.617 20.031C17.0237 21.3082 15.042 22.0029 13 22C8.032 22 4 17.968 4 13C4 8.032 8.032 4 13 4C17.968 4 22 8.032 22 13C22.0029 15.042 21.3082 17.0237 20.031 18.617ZM18.025 17.875C19.2941 16.5699 20.0029 14.8204 20 13C20 9.132 16.867 6 13 6C9.132 6 6 9.132 6 13C6 16.867 9.132 20 13 20C14.8204 20.0029 16.5699 19.2941 17.875 18.025L18.025 17.875Z" fill=""></path>
+                                          </g>
+                                          <defs>
+                                              <clippath id="clip0_91_73">
+                                                  <rect width="24" height="24" fill="white" transform="translate(2 2)"></rect>
+                                              </clippath>
+                                          </defs>
+                                      </svg>
+                                  </a>
+                              </div>
+                          </div>
+                      {% endfor %}
+                      <div class="cardInfo" style="padding: 10px;">
+                          <h6 class="text-17-medium mb-10">{{ category.name }}</h6>
+                          {% if category.images.first.product %}
+                              <p class="body-p2 cardDesc" style="font-size: 16px; color: #333;">${{ category.images.first.product.price }}</p>
+                          {% endif %}
+                      </div>
+                  </div>
+              </div>
+          {% endfor %}
+
+            <div class="text-center mt-20"> <a class="btn btn-border-medium" href="#">View More</a></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+
+
+
+
+
+
+
+    <section class="section block-new-collection block-padding-80 pb-0">
+      <div class="container"> 
+        <div class="text-center">
+          <h3 class="wow fadeInLeft mb-40">New Collection</h3>
+        </div>
+        <div class="row"> 
+
+         
+        
+          <div class="container">
+            <div class="row">
+                {% for category in categories %}
+                    {% if category.name == "Men's" %}
+                        {% for image in category.images.all|slice:":2" %}
+                            <div class="col-lg-6 col-md-6 col-sm-12 mb-4"> 
+                                <div class="cardProductStyle3 cardProductType03 wow fadeInUp" style="position: relative; overflow: hidden;">
+                                    <div class="cardImage" style="position: relative; overflow: hidden; width: 100%; height: 400px; margin-bottom: 20px;">
+                                        <a href="#" style="display: block; position: relative; width: 100%; height: 100%;">
+                                            <img class="imageMain" src="{{ image.image.url }}" alt="{{ image.title }}" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease;">
+                                            <img class="imageHover" src="{{ image.image.url }}" alt="{{ image.title }}" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease; position: absolute; top: 0; left: 0; z-index: 1;">
+                                        </a>
+                                        <div class="button-select" style="position: absolute; bottom: 10px; left: 1px; right: 1px; background: rgba(0, 0, 0, 0.5); padding: 5px; border-radius: 3px; z-index: 3;">
+                                            <a href="#" class="text-white">Select Options</a>
+                                        </div>
+                                        <div class="box-quick-button" style="position: absolute; top: 10px; right: 10px; z-index: 3;">
+
+                                        {% if request.session %}
+                                            <a class="btn btn-light" type="submit" onclick="addtowishlist('{{ image.id }}')">
+                                                <!-- SVG icon for additional actions -->
+                                                <svg class="d-inline-flex align-items-center justify-content-center" width="28" height="28" viewBox="0 0 28 28" xmlns="http://www.w3.org/2000/svg">
+                                                    <g clip-path="url(#clip0_116_452)">
+                                                        <path d="M14.001 6.52898C16.35 4.41998 19.98 4.48998 22.243 6.75698C24.505 9.02498 24.583 12.637 22.479 14.993L13.999 23.485L5.52101 14.993C3.41701 12.637 3.49601 9.01898 5.75701 6.75698C8.02201 4.49298 11.645 4.41698 14.001 6.52898ZM20.827 8.16998C19.327 6.66798 16.907 6.60698 15.337 8.01698L14.002 9.21498L12.666 8.01798C11.091 6.60598 8.67601 6.66798 7.17201 8.17198C5.68201 9.66198 5.60701 12.047 6.98001 13.623L14 20.654L21.02 13.624C22.394 12.047 22.319 9.66498 20.827 8.16998Z" fill=""></path>
+                                                    </g>
+                                                    <defs>
+                                                        <clippath id="clip0_116_452">
+                                                            <rect width="24" height="24" fill="white" transform="translate(2 2)"></rect>
+                                                        </clippath>
+                                                    </defs>
+                                                </svg>
+                                            </a>
+                                        {% endif %}
+                                            
+                                            <a class="btn btn-light preview-product" href="#">
+                                                <!-- Preview SVG icon -->
+                                                <svg class="d-inline-flex align-items-center justify-content-center" width="28" height="28" viewBox="0 0 28 28" fill="" xmlns="http://www.w3.org/2000/svg">
+                                                    <g clip-path="url(#clip0_91_73)">
+                                                        <path d="M20.031 18.617L24.314 22.899L22.899 24.314L18.617 20.031C17.0237 21.3082 15.042 22.0029 13 22C8.032 22 4 17.968 4 13C4 8.032 8.032 4 13 4C17.968 4 22 8.032 22 13C22.0029 15.042 21.3082 17.0237 20.031 18.617ZM18.025 17.875C19.2941 16.5699 20.0029 14.8204 20 13C20 9.132 16.867 6 13 6C9.132 6 6 9.132 6 13C6 16.867 9.132 20 13 20C14.8204 20.0029 16.5699 19.2941 17.875 18.025L18.025 17.875Z" fill=""></path>
+                                                    </g>
+                                                    <defs>
+                                                        <clippath id="clip0_91_73">
+                                                            <rect width="24" height="24" fill="white" transform="translate(2 2)"></rect>
+                                                        </clippath>
+                                                    </defs>
+                                                </svg>
+                                            </a>
+                                        </div>
+                                    </div>
+                                    <div class="cardInfo" style="padding: 10px;">
+                                        <h6 class="text-17-medium mb-10">{{ image.title }}</h6>
+                                        {% if image.product %}
+                                            <p class="body-p2 cardDesc" style="font-size: 16px; color: #333;">${{ image.product.price }}</p>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    {% endif %}
+                {% endfor %}
+            </div>
+        </div>
+        
+        <style>
+        .cardImage a {
+            display: block;
+            position: relative;
+            height: 100%;
+        }
+        
+        .cardImage a:hover .imageMain {
+            transform: scale(1.1);
+        }
+        
+        .cardImage a:hover .imageHover {
+            opacity: 1;
+            transform: scale(1.1);
+        }
+        
+        .imageMain, .imageHover {
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 1;
+        }
+        
+        .imageHover {
+            opacity: 0;
+        }
+        </style>
+      
+        </div>
+      </div>
+    </section>
+
+
+
+
+
+    <section class="section block-banner-book"> 
+      <div class="container"> 
+        <div class="box-book-grey">
+          <div class="row align-items-center"> 
+            <div class="col-lg-5">
+              <div class="text-center">
+                <h3 class="mb-25">Black Friday Sale</h3><a class="link-underline" href="#">Shop Now</a>
+              </div>
+            </div>
+            <div class="col-lg-7"> 
+              <div class="text-center"> <img class="img-book" src="{% static 'assets/imgs/page/homepage32/bg-book.png'%}" alt="Guza"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+
+
+
+  </main>
+
+
+
+
+  <script>
+
+// ==================================================Add_to_wishlist=================================================================================
+
+
+  <script/>
+
+
+{% endblock main-content %}

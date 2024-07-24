@@ -1,0 +1,88 @@
+{% load static %}
+
+  <!DOCTYPE html>
+  <html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+      <meta http-equiv="X-UA-Compatible" content="ie=edge">
+      <meta name="msapplication-TileColor" content="#0E0E0E">
+      <meta name="template-color" content="#0E0E0E">
+      <meta name="description" content="Index page">
+      <meta name="keywords" content="index, page">
+      <meta name="author" content="">
+
+      <link rel="shortcut icon" type="image/x-icon" href="{% static '../assets/imgs/template/favicon.svg' %}">
+      <link href="{% static 'assets/css/style.css' %}" rel="stylesheet">
+      {% comment %} <link href="{% static 'fontawesomefree/css/all.min.css' %}" rel="stylesheet" type="text/css"> {% endcomment %}
+
+      <script src="{% static 'assets/js/vendors/jquery-3.7.0.min.js' %}"></script>
+      {% comment %} <script src="{% static 'fontawesomefree/js/all.min.js' %}"></script> {% endcomment %}
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+
+      <title>{% block title %}Home 32 - Book Store - Multipurpose Startup SaaS HTML Template{% endblock title %}</title>
+    </head>
+    <body>
+
+      {% include "enroll/practice.html" %}
+
+      
+      {% comment %} {% include "enroll/signin.html" %}
+      {% include "enroll/search.html" %}
+      {% include "enroll/wishlist.html" %}
+      {% include "enroll/cart.html" %} {% endcomment %}
+
+
+        {% block main-content %}
+
+          
+        {% endblock main-content %}
+
+
+
+
+      {% include "enroll/footer.html" %}
+
+      {% comment %} {% include "enroll/signin.html" %}
+
+      {% include "enroll/search.html" %}
+      
+      {% include "enroll/wishlist.html" %}
+
+      {% include "enroll/cart.html" %}
+
+      {% block wishlist %}
+      {% endblock wishlist %}
+
+      {% block cart %}
+      {% endblock cart %} {% endcomment %}
+
+
+
+      
+      
+
+     
+     
+    
+        
+
+      <script src="{% static 'assets/js/vendors/modernizr-3.6.0.min.js' %}"></script> 
+      <script src="{% static 'assets/js/vendors/jquery-migrate-3.3.0.min.js' %}"></script>
+      <script src="{% static 'assets/js/vendors/bootstrap.bundle.min.js' %}"></script>
+      <script src="{% static 'assets/js/vendors/waypoints.js' %}"></script>
+      <script src="{% static 'assets/js/vendors/wow.js' %}"></script>
+      <script src="{% static 'assets/js/vendors/magnific-popup.js' %}"></script>
+      <script src="{% static 'assets/js/vendors/perfect-scrollbar.min.js' %}"></script>
+      <script src="{% static 'assets/js/vendors/select2.min.js' %}"></script>
+      <script src="{% static 'assets/js/vendors/isotope.js' %}"></script>
+      <script src="{% static 'assets/js/vendors/swiper-bundle.min.js' %}"></script>
+      <script src="{% static 'assets/js/vendors/counterup.js' %}"></script>
+      <script src="{% static 'assets/js/vendors/jquery.countdown.min.js' %}"></script>
+      <script src="{% static 'assets/js/vendors/slick.js' %}"></script>
+      <script src="{% static 'assets/js/vendors/jquery.timepicker.min.js' %}"></script>
+      <script src="{% static 'assets/js/vendors/glightbox.min.js' %}"></script>
+      <script src="{% static 'assets/js/main.js' %}"></script>
+    </body>
+  </html>

@@ -1,0 +1,45 @@
+{% load static %} 
+
+
+
+<div class="box-popup-account">
+  <div class="box-account-overlay"></div>
+  <div class="box-account-wrapper">
+    <a class="btn-close-popup btn-close-popup-account" href="#">
+      <svg class="icon-16 d-inline-flex align-items-center justify-content-center" fill="#111111" stroke="#111111" width="24" height="24" viewbox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
+      </svg>
+    </a>
+    <div class="form-account-info">
+      <div class="form-account-info"><a class="button-tab btn-for-login active" href="#">Login</a><a class="button-tab btn-for-signup" href="#">Sign up</a>
+
+
+      <!-- Login Form -->
+      <div class="form-login" id="login-form">
+        <form action="{% url 'signin' %}" method="POST" class="shadow p-2">
+
+          {% csrf_token %}
+
+          <div class="form-group">
+            <input class="form-control" type="text" name="Email" placeholder="Email">
+          </div>
+          <div class="form-group">
+            <input class="form-control" type="password" name="Password" placeholder="Password">
+          </div>
+          
+          <div class="form-group"><a class="link-under buttun-forgotpass" href="#">Forgot your password?</a></div>
+          <div class="form-group">
+            <button class="btn btn-black d-block">Login</button>
+          </div>
+        </form>
+      </div>
+
+     {% include "enroll/signup.html" %}
+      
+    </div>
+  </div>
+</div>
+
+ 
+
+

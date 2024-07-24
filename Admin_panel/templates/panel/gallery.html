@@ -1,0 +1,108 @@
+{% extends "panel/base.html" %}
+{% load static %}
+
+{% block main-content %}
+<div class="main-content">
+    <div class="page-content">
+        <div class="container-fluid">
+
+            <!-- Start page title -->
+            <div class="row">
+                <div class="col-12">
+                    <div class="page-title-box d-sm-flex align-items-center justify-content-between">
+                        <h4 class="mb-sm-0">Gallery</h4>
+                        <div class="page-title-right">
+                            <ol class="breadcrumb m-0">
+                                <li class="breadcrumb-item"><a href="javascript: void(0);">Pages</a></li>
+                                <li class="breadcrumb-item active">Gallery</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End page title -->
+
+            <!-- Gallery Filter -->
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card-body">
+                        <div class="text-center">
+                            <ul class="list-inline categories-filter animation-nav" id="filter">
+                                <li class="list-inline-item"><a class="categories active" data-filter="*">All</a></li>
+                                {% for category in categories %}
+                                    <li class="list-inline-item"><a class="categories" data-filter=".{{ category.name|slugify }}">{{ category.name }}</a></li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+
+                        <div class="row gallery-wrapper">
+                            {% for category in categories %}
+                                {% for image in category.images.all %}
+                                    <div class="element-item col-xxl-3 col-xl-4 col-sm-6 {{ category.name|slugify }}" data-category="{{ category.name|slugify }}">
+                                        <div class="gallery-box card">
+                                            <div class="gallery-container">
+                                                <a class="image-popup" href="{{ image.image.url }}" title="">
+                                                    <img class="gallery-img img-fluid mx-auto" src="{{ image.image.url }}" alt="{{ image.title }}" />
+                                                    <div class="gallery-overlay">
+                                                        <h5 class="overlay-caption">{{ image.title }}</h5>
+                                                    </div>
+                                                </a>
+                                            </div>
+                                            <div class="box-content">
+                                                <div class="d-flex align-items-center mt-1">
+                                                    <div class="flex-grow-1 text-muted">by <a href="#" class="text-body text-truncate">Author Name</a></div>
+                                                    <div class="flex-shrink-0">
+                                                        <div class="d-flex gap-3">
+                                                            <button type="button" class="btn btn-sm fs-12 btn-link text-body text-decoration-none px-0">
+                                                                <i class="ri-thumb-up-fill text-muted align-bottom me-1"></i> 2.2K
+                                                            </button>
+                                                            <button type="button" class="btn btn-sm fs-12 btn-link text-body text-decoration-none px-0">
+                                                                <i class="ri-question-answer-fill text-muted align-bottom me-1"></i> 1.3K
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- End Gallery Filter -->
+
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const filterLinks = document.querySelectorAll(".categories-filter .categories");
+        const items = document.querySelectorAll(".element-item");
+
+        filterLinks.forEach(link => {
+            link.addEventListener("click", function(e) {
+                e.preventDefault();
+                filterLinks.forEach(link => link.classList.remove("active"));
+                this.classList.add("active");
+
+                const filterValue = this.getAttribute("data-filter");
+                if (filterValue === "*") {
+                    items.forEach(item => item.style.display = "block");
+                } else {
+                    items.forEach(item => {
+                        if (item.classList.contains(filterValue.substring(1))) {
+                            item.style.display = "block";
+                        } else {
+                            item.style.display = "none";
+                        }
+                    });
+                }
+            });
+        });
+    });
+</script>
+
+{% endblock main-content %}

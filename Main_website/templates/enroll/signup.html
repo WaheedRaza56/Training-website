@@ -1,0 +1,32 @@
+ <!-- Signup Form -->
+ <div class="form-register" id="signup-form">
+    <form action="{% url 'signup' %}" method="POST" class="shadow p-2">
+      {% csrf_token %}
+
+      <div class="form-group">
+        <input class="form-control" type="text" name="f_name" placeholder="First Name">
+      </div>
+      <div class="form-group">
+        <input class="form-control" type="text" name="l_name" placeholder="Last Name">
+      </div>
+      <div class="form-group">
+        <input class="form-control" type="text" name="Email" placeholder="Email">
+      </div>
+      <div class="form-group">
+        <input class="form-control" type="password" name="Password" placeholder="Password">
+      </div>
+
+      <div class="form-group">
+        <label class="d-flex align-items-start">
+          <input class="cb-agree" type="checkbox">
+          <span class="text-agree body-p2">Join for Free and start earning points today. Benefits include 15% off your first purchase,</span>
+        </label>
+      </div>
+      <div class="form-group">
+        <button class="btn btn-black d-block">Create my account</button>
+      </div>
+      <div class="text-center">
+        <p class="body-p2 neutral-medium-dark">Already have an account?<a class="neutral-dark login-now" href="{% url 'signin' %}">Login Now</a></p>
+      </div>
+    </form>
+  </div>
