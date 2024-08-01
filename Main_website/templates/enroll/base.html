@@ -14,10 +14,10 @@
 
       <link rel="shortcut icon" type="image/x-icon" href="{% static '../assets/imgs/template/favicon.svg' %}">
       <link href="{% static 'assets/css/style.css' %}" rel="stylesheet">
-      {% comment %} <link href="{% static 'fontawesomefree/css/all.min.css' %}" rel="stylesheet" type="text/css"> {% endcomment %}
+      <link href="{% static 'fontawesomefree/css/all.min.css' %}" rel="stylesheet" type="text/css">
 
       <script src="{% static 'assets/js/vendors/jquery-3.7.0.min.js' %}"></script>
-      {% comment %} <script src="{% static 'fontawesomefree/js/all.min.js' %}"></script> {% endcomment %}
+      <script src="{% static 'fontawesomefree/js/all.min.js' %}"></script>
       <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
 
@@ -28,10 +28,6 @@
       {% include "enroll/practice.html" %}
 
       
-      {% comment %} {% include "enroll/signin.html" %}
-      {% include "enroll/search.html" %}
-      {% include "enroll/wishlist.html" %}
-      {% include "enroll/cart.html" %} {% endcomment %}
 
 
         {% block main-content %}
@@ -40,30 +36,95 @@
         {% endblock main-content %}
 
 
-
+      {% include "enroll/signin.html" %}
 
       {% include "enroll/footer.html" %}
 
-      {% comment %} {% include "enroll/signin.html" %}
 
-      {% include "enroll/search.html" %}
       
-      {% include "enroll/wishlist.html" %}
-
-      {% include "enroll/cart.html" %}
-
-      {% block wishlist %}
-      {% endblock wishlist %}
-
-      {% block cart %}
-      {% endblock cart %} {% endcomment %}
 
 
 
       
       
 
-     
+     <script>
+      // ==================================================  signup_form  ===============================================
+
+
+    
+    $(document).ready(function() 
+    {
+        $('#signup-form').on('submit', function(e) 
+        {
+            e.preventDefault();
+            var formData = $(this).serialize();
+            console.log('Signup form data:', formData);
+    
+            $.ajax({
+                type: 'POST',
+                url: "{% url 'signup' %}",
+                data: formData,
+                success: function(response) 
+                {
+                    console.log('Signup response:', response);
+                    if (response.status === 'success') 
+                    {
+                        window.location.href = response.redirect_url;
+                    } 
+                    else 
+                    {
+                        alert(response.message);
+                    }
+                },
+                error: function(xhr, status, error) 
+                {
+                    console.error('Signup error:', error);
+                    console.error('Response:', xhr.responseText);
+                    alert('An error occurred. Please try again.');
+                }
+            });
+        });
+    
+
+  // ==================================================   Sign_form   ===============================================
+
+        $('#signin-form').on('submit', function(e) 
+        {
+            e.preventDefault();
+            var formData = $(this).serialize();
+            console.log('Signin form data:', formData);
+    
+            $.ajax({
+                type: 'POST',
+                url: "{% url 'signin' %}",
+                data: formData,
+                success: function(response) 
+                {
+                    console.log('Signin response:', response);
+                    if (response.status === 'success') 
+                    {
+
+                       window.location.href = response.redirect_url;
+                    } 
+                    else 
+                    {
+                      alert(response.message);
+                    }
+                },
+                error: function(xhr, status, error) 
+                {
+                    console.error('Signin error:', error);
+                    console.error('Response:', xhr.responseText);
+                    alert('An error occurred. Please try again.');
+                }
+            });
+        });
+    });
+    
+    
+
+      <script/>
      
     
         

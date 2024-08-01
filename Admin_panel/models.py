@@ -4,6 +4,10 @@ from datetime import date
 from django.contrib.auth.models import User
 
 
+
+
+##########################################    Category   ###########################
+
 class Category(models.Model):
     name = models.CharField(max_length=100)
     description = models.TextField(default='')
@@ -11,6 +15,7 @@ class Category(models.Model):
     def __str__(self):
         return self.name or ''
     
+##########################################    Product   ###########################
 
 
 class Product(models.Model):
@@ -38,6 +43,10 @@ class Product(models.Model):
 
     def get_available_colors(self):
         return list(self.productdetail_set.values_list('color', flat=True).distinct())
+
+
+##########################################    CategoryImage   ###########################
+
 
 class CategoryImage(models.Model):
     SMALL = 'S'
@@ -80,6 +89,11 @@ class CategoryImage(models.Model):
 
     def __str__(self):
         return f"{self.category.name} Image"
+
+
+
+##########################################    ProductDetail   ###########################
+
 
 class ProductDetail(models.Model):
     SMALL = 'S'
@@ -133,7 +147,12 @@ class ProductDetail(models.Model):
 
 
 
+
+##########################################    Customer   ###########################
+
+
 class Customer(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE,null=True)
     customer = models.CharField(max_length=200, unique=True)
     email = models.EmailField(max_length=55, default='')
     phone = models.CharField(max_length=15)
@@ -142,6 +161,8 @@ class Customer(models.Model):
     def __str__(self):
         return self.customer
     
+##########################################    Order   ###########################
+
 
 class Order(models.Model):
     MASTERCARD = 'Mastercard'
@@ -180,6 +201,10 @@ class Order(models.Model):
     def __str__(self):
         return f'Order for {self.product.product} by {self.customer.customer}'
 
+
+##########################################    OrderDetail   ###########################
+
+
 class OrderDetail(models.Model):
     order = models.ForeignKey(Order, on_delete=models.CASCADE)
     product_detail = models.ForeignKey(ProductDetail, on_delete=models.CASCADE)
@@ -192,14 +217,11 @@ class OrderDetail(models.Model):
 
 
 
+##########################################    Checkout   ###########################
 
-
-class Cart(models.Model):
-    customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
-    order_detail = models.ForeignKey(OrderDetail, on_delete=models.CASCADE)
-    quantity = models.PositiveIntegerField(default=1)
 
 class Checkout(models.Model):
+    
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
     first_name = models.CharField(max_length=55, default='')
     last_name = models.CharField(max_length=55, default='')
@@ -209,6 +231,35 @@ class Checkout(models.Model):
     country = models.CharField(max_length=55, default='')
     state = models.CharField(max_length=55, default='')
     zipcode = models.CharField(max_length=10, default='')
+    order_note = models.TextField(max_length=500, default='')
+    created_at = models.DateField(default=date.today)
+    
+    def __str__(self):
+        return f"{self.first_name} {self.last_name} - {self.email}"
+  
+  
+  
+  ##########################################    Cart   ###########################
+
+  
+class Cart(models.Model):
+    customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
+    order_detail = models.ForeignKey(OrderDetail, on_delete=models.CASCADE)
+    quantity = models.PositiveIntegerField(default=1)
+    checkout = models.ForeignKey(Checkout, on_delete=models.CASCADE, null=True, blank=True)
+
+    
+    def price(self):
+        return self.order_detail.product_detail.product.price
+
+
+    def total_price(self):
+        return self.price() * self.quantity
+  
+  
+  
+  ##########################################    ProductCategory   ###########################
+  
 
 class ProductCategory(models.Model):
     product = models.ForeignKey(Product, on_delete=models.CASCADE)
@@ -216,6 +267,9 @@ class ProductCategory(models.Model):
 
     def __str__(self):
         return f'{self.product.product} - {self.category.name}'
+
+
+##########################################    wishlist   ###########################
 
 
 class wishlist(models.Model):

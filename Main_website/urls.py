@@ -6,7 +6,7 @@ from django.conf.urls.static import static
 urlpatterns = [
     
     path('signin/', views.signin, name='signin'),
-    path('signup/', views.signup, name='signup'),
+    path('  /', views.signup, name='signup'),
     # path('logout/', views.logoutUser, name='logout'),
     
     
@@ -17,12 +17,17 @@ urlpatterns = [
     path('contact/', views.contact, name='contact'),
     
     path('add-to-wishlist/',views.addtowishlist,name='addtowishlist'),
-    path('deletefromwishlist', views.deletefromwishlist, name='deletefromwishlist'),
+    path('deletefromwishlist/', views.deletefromwishlist, name='deletefromwishlist'),
 
-    # path('add-to-cart/',views.addtocart,name='addtocart'),
+    path('add-to-cart/',views.addtocart,name='addtocart'),
+    path('deletefromcart/', views.deletefromcart, name='deletefromcart'),
 
-    # path('search/',views.search,name='search'),
+    path('cart-price/',views.cart_price,name='cart-price'),
+    path('plus-cart/',views.plus_cart,name='plus-cart'),
+    path('minus-cart/',views.minus_cart,name='minus-cart'),
     
+    path('checkout/',views.checkout,name='checkout'),
+    path('search/',views.search,name='search'),
     
     
 ]

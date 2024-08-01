@@ -1,0 +1,231 @@
+{% extends "enroll/base.html" %}
+
+{% load static %}
+
+{% block title %} checkout {% endblock title %}
+
+
+{% block main-content %}
+
+
+
+
+<main class="main">
+    <div class="section block-breadcrumb">
+      <div class="container"> 
+        <div class="breadcrumbs"> 
+          <ul> 
+            <li> <a href="{% url 'home' %}">Home </a></li>
+            <li> <a href="#">Checkout</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+
+
+    <section class="section block-cart">
+      <div class="container mb-100 mt-60">
+        <form method="POST" action="{% url 'checkout' %}">
+            {% csrf_token %}
+            <div class="row mt-20">
+                <div class="col-lg-6">
+                    <div class="box-customer-login">
+                        Returning customer? <a href="#">Click here to login</a>
+                    </div>
+                    <div class="box-gift-coupon">
+                        Have a coupon?  <a href="#">Click here to enter your code</a>
+                    </div>
+                    <div class="box-title-checkout mt-30">
+                        <h4 class="mb-25">Billing Details</h4>
+                        <h5 class="mb-20">Contact information</h5>
+                    </div>
+                    <div class="box-form-checkout form-comment">
+                        <div class="form-group">
+                            <label class="form-label" for="email">Email Address *</label>
+                            <input class="form-control" id="email" name="email" type="text">
+                            <label class="mt-12">
+                                <input class="cb-left" type="checkbox">Email me with news and offers 
+                            </label>
+                        </div>
+                        <h4 class="mt-32 mb-25">Shipping address</h4>
+                        <div class="row">
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label class="form-label" for="firstname">First Name *</label>
+                                    <input class="form-control" name="fname" id="firstname" type="text">
+                                </div>
+                            </div>
+                            <div class="col-lg-6">
+                                <div class="form-group">
+                                    <label class="form-label" for="lastname">Last Name *</label>
+                                    <input class="form-control" name="lname" id="lastname" type="text">
+                                </div>
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="form-group">
+                                    <label class="form-label" for="region">Country / Region *</label>
+                                    <input class="form-control" name="country" id="region" type="text" value="United Kingdoom (UK)">
+                                </div>
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="form-group">
+                                    <label class="form-label" for="address">Street Address *</label>
+                                    <input class="form-control" name="address" id="address" type="text">
+                                </div>
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="form-group">
+                                    <label class="form-label" for="postcode">Postcode *</label>
+                                    <input class="form-control" name="zipcode" id="postcode" type="text">
+                                </div>
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="form-group">
+                                    <label class="form-label" for="phone">Phone *</label>
+                                    <input class="form-control" name="phone" id="phone" type="text">
+                                </div>
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="form-group">
+                                    <label>
+                                        <input class="cb-left" type="checkbox">Create an account? 
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="form-group">
+                                    <label>
+                                        <input class="cb-left" type="checkbox">Ship to a different address?
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="form-group">
+                                    <label class="form-label" for="ordernote">Order Note (optional)</label>
+                                    <textarea class="form-control" name="order_note" id="ordernote" rows="6"></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        
+                <div class="col-lg-6">
+                    <div class="box-detail-cart">
+                        <h4 class="mb-25">Your Order</h4>
+                        <div class="box-info-cart">
+                            <p class="text-17-medium text-uppercase">Product</p>
+                            <div class="box-info-checkout-inner">
+                                {% if Carts %}
+                                <div class="list-items-cart">
+                                    {% for item in Carts %}
+                                    <div class="item-cart">
+                                        <div class="item-cart-image">
+
+                                            {% if item.order_detail.product_detail.product.image %}
+                                            <img src="{{ item.order_detail.product_detail.product.image.url }}" alt="Product Image">
+                                            {% else %}
+                                            <img src="{% static 'assets/imgs/page/homepage32/cat3.png' %}" alt="Default Image">
+                                            {% endif %}
+                                        </div>
+                                        <div class="item-cart-info">
+                                            <div class="item-cart-info-1">
+                                                <a class="text-17-medium" href="#">{{ item.order_detail.product_detail.product.product }}</a>
+                                                <p class="box-color">
+                                                    <span class="body-p2 neutral-medium-dark">Color:</span>
+                                                    <span class="body-p2 neutral-dark">{{ item.order_detail.product_detail.color }}</span>
+                                                </p>
+                                                <p class="box-size">
+                                                    <span class="body-p2 neutral-medium-dark">Size:</span>
+                                                    <span class="body-p2 neutral-dark">{{ item.order_detail.product_detail.size }}</span>
+                                                </p>
+                                            </div>
+                                            <div class="item-cart-info-2">
+                                                <p class="body-p2">${{ item.order_detail.product_detail.product.price }}</p>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    {% endfor %}
+                                </div>
+                                {% endif %}
+                            </div>
+                            <div class="d-flex align-items-center justify-content-between box-border-bottom">
+                                <h5 class="neutral-medium-dark">Subtotal</h5>
+                                <h5 class="neutral-dark">$<span class="totalAmount-display" data-total-amount="waheed">{{amount}} </span></h5>
+                            </div>
+                            <div class="box-info-cart-inner">
+                                <p class="text-17-medium text-uppercase mb-15 neutral-medium-dark">Shipping</p>
+                                <div class="list-radio">
+                                    <div class="item-radio">
+                                        <label>
+                                            <input type="radio" name="shipping" checked="checked">Flat rate: $90.00
+                                        </label><span class="price-ship">$90.00</span>
+                                    </div>
+                                    <div class="item-radio">
+                                        <label>
+                                            <input type="radio" name="shipping">Local pickup: $60.00
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="d-flex align-items-center justify-content-between box-border-bottom">
+                                <h5 class="neutral-medium-dark">Total</h5>
+                                <h5 class="color-9"><span class="totalAmount-display" data-total-amount="waheed">${% if total_amount %} {{total_amount}} {% else %} 0.0 {% endif %}</span></h5>
+                            </div>
+                            <div class="box-other-link text-start box-border-bottom">
+                                <span class="text-17 link-green">Free shipping on orders over $200.00</span><a class="text-17" href="{% url 'home' %}">Continue Shopping</a>
+                            </div>
+                            <div class="box-button-checkout">
+                                <button class="btn btn-black" type="submit">Place Order</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        
+      </div>
+    </section>
+
+
+<script>
+
+    $(document).ready(function() 
+{
+  $('form').on('submit', function(event) 
+  {
+      event.preventDefault();
+      
+      $.ajax({
+          type: 'POST',
+          url: $(this).attr('action'),
+          data: $(this).serialize(),
+          success: function(response) 
+          {
+              if (response.status === 'success') 
+              {
+                  alert(response.message);
+              } 
+              else 
+              {
+                  alert(response.message);
+              }
+          },
+          error: function(response) 
+          {
+              alert('An error occurred. Please try again.');
+          }
+      });
+  });
+});
+
+<script/>
+
+  </main>
+
+
+
+
+
+
+{% endblock main-content %}
